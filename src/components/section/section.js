@@ -4,7 +4,10 @@ import Resource from '../resource/resource';
 
 const Container = styled.div`
   border-radius: 2%;
-  border-left: 7px solid black;
+  &:hover {
+    border-left: 7px solid black;
+  }
+
   width: 80%;
   -webkit-box-shadow: 3px 3px 9px 0px rgba(50, 50, 50, 0.75);
   -moz-box-shadow: 3px 3px 9px 0px rgba(50, 50, 50, 0.75);
@@ -25,11 +28,12 @@ const Header = styled.h2`
   display: inline-block;
 `;
 
-const Section = () => {
+const Section = (props) => {
+  console.log(props);
   return (
     <Container>
       <Header>Courses</Header>
-      <Resource></Resource>
+      <Resource information={props.resource}></Resource>
     </Container>
   );
 };

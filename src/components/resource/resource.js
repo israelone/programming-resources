@@ -22,6 +22,7 @@ const Tag = styled.li`
   margin: 10px;
   list-style: none;
   padding: 4px;
+  cursor: pointer;
 `;
 
 const Header = styled.h2``;
@@ -38,15 +39,17 @@ const ShowMoreButton = styled.button`
 
 const DescriptionContainer = styled.div`
   height: ${(props) =>
-    props.showDescription === false ? props.scrollHeight + 'px' : '50px'};
+    props.showDescription === false ? '50px' : props.scrollHeight + 'px'};
   overflow: hidden;
   transition: height 0.2s ease-out;
 `;
+
 const DescriptionSection = styled.div``;
 
-const Resource = () => {
+const Resource = (props) => {
+  console.log(props);
   const [showDescription, setShowDescription] = useState(false);
-  const [scrollHeight, setScrollHeight] = useState(50);
+  const [scrollHeight, setScrollHeight] = useState('50');
 
   const showDescriptionHandler = (e) => {
     console.log(showDescription, scrollHeight, e);
@@ -57,7 +60,7 @@ const Resource = () => {
   return (
     <Container>
       <Header>
-        <a href="www.freecodecamp.com">FreeCodeCamp</a>
+        <a href={props.information.url}>{props.information.name}</a>
       </Header>
       <SubHeader></SubHeader>
       <DescriptionSection>
@@ -65,31 +68,15 @@ const Resource = () => {
           showDescription={showDescription}
           scrollHeight={scrollHeight}
         >
-          <Description>
-            Our mission: to help people learn to code for free. We accomplish
-            this by creating thousands of videos, articles, and interactive
-            coding lessons - all freely available to the public. We also have
-            thousands of freeCodeCamp study groups around the world. Our
-            mission: to help people learn to code for free. We accomplish this
-            by creating thousands of videos, articles, and interactive coding
-            lessons - all freely available to the public. We also have thousands
-            of freeCodeCamp study groups around the world. Our mission: to help
-            people learn to code for free. We accomplish this by creating
-            thousands of videos, articles, and interactive coding lessons - all
-            freely available to the public. We also have thousands of
-            freeCodeCamp study groups around the world.
-          </Description>
+          <Description>{props.information.description}</Description>
         </DescriptionContainer>
         <ShowMoreButton onClick={showDescriptionHandler}>More</ShowMoreButton>
       </DescriptionSection>
       <Divider></Divider>
       <TagsList>
-        <Tag>HTML</Tag>
-        <Tag>CSS</Tag>
-        <Tag>Javascript</Tag>
-        <Tag>HTML</Tag>
-        <Tag>CSS</Tag>
-        <Tag>Javascript</Tag>
+        {props.information.tags.map((tag) => {
+          return <Tag>{tag}</Tag>;
+        })}
       </TagsList>
     </Container>
   );
